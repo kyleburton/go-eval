@@ -136,8 +136,8 @@ func TypeOfNative(v interface{}) Type { return TypeFromNative(reflect.TypeOf(v))
  */
 
 type NativeFunc struct {
-	fn      func(*Thread, []Value, []Value)
-	in, out int
+	Fn      func(*Thread, []Value, []Value)
+	In, Out int
 }
 
 func (f *NativeFunc) NewFrame() *Frame {
