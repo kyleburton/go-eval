@@ -16,7 +16,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/sbinet/go-eval/pkg/eval"
+	//"github.com/sbinet/go-eval/pkg/eval"
+	"eval"
 	"github.com/sbinet/go-terminal/pkg/terminal"
 )
 
@@ -86,6 +87,9 @@ func main() {
 	if term == nil {
 		panic(errors.New("could not create terminal"))
 	}
+
+  //foo := 123
+  //w.DefineVar("foo", eval.TypeOfNative(foo), eval.ToValue(foo))
 
 	for {
 		line, err := term.ReadLine()

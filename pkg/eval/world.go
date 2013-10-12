@@ -376,3 +376,5 @@ func (w *World) DefineVar(name string, t Type, val Value) error {
 	v.Init = val
 	return nil
 }
+
+

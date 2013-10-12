@@ -8,6 +8,7 @@ import (
 	"go/token"
 	"log"
 	"reflect"
+	"math/big"
 )
 
 /*
@@ -162,3 +163,71 @@ func FuncFromNativeTyped(fn func(*Thread, []Value, []Value), t interface{}) (*Fu
 	ft := TypeOfNative(t).(*FuncType)
 	return ft, FuncFromNative(fn, ft)
 }
+
+type vstruct []interface{}
+
+type varray []interface{}
+
+type vslice struct {
+	arr      varray
+	len, cap int
+}
+
+type vmap map[interface{}]interface{}
+
+
+func ToValue(val interface{}) Value {
+	switch val := val.(type) {
+	case bool:
+		r := boolV(val)
+		return &r
+	case uint8:
+		r := uint8V(val)
+		return &r
+	case uint:
+		r := uintV(val)
+		return &r
+	case int:
+		r := intV(val)
+		return &r
+	case *big.Int:
+		return &idealIntV{val}
+	case float64:
+		r := float64V(val)
+		return &r
+	case *big.Rat:
+		return &idealFloatV{val}
+	case string:
+		r := stringV(val)
+		return &r
+	case vstruct:
+		elems := make([]Value, len(val))
+		for i, e := range val {
+			elems[i] = ToValue(e)
+		}
+		r := structV(elems)
+		return &r
+	case varray:
+		elems := make([]Value, len(val))
+		for i, e := range val {
+			elems[i] = ToValue(e)
+		}
+		r := arrayV(elems)
+		return &r
+	case vslice:
+		return &sliceV{Slice{ToValue(val.arr).(ArrayValue), int64(val.len), int64(val.cap)}}
+	case vmap:
+		target := evalMap{}
+		for k, v := range val {
+			target[k] = ToValue(v)
+		}
+		r := mapV{target}
+		return &r
+	case Func:
+		return &funcV{val}
+	}
+	log.Panicf("ToValue(%T) not implemented", val)
+	panic("unreachable")
+}
+
+
