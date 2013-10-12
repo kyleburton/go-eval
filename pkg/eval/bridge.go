@@ -141,11 +141,11 @@ type NativeFunc struct {
 }
 
 func (f *NativeFunc) NewFrame() *Frame {
-	vars := make([]Value, f.in+f.out)
+	vars := make([]Value, f.In+f.Out)
 	return &Frame{nil, vars}
 }
 
-func (f *NativeFunc) Call(t *Thread) { f.fn(t, t.f.Vars[0:f.in], t.f.Vars[f.in:f.in+f.out]) }
+func (f *NativeFunc) Call(t *Thread) { f.Fn(t, t.f.Vars[0:f.In], t.f.Vars[f.In:f.In+f.Out]) }
 
 // FuncFromNative creates an interpreter function from a native
 // function that takes its in and out arguments as slices of
