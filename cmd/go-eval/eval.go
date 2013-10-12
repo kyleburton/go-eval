@@ -16,8 +16,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	//"github.com/sbinet/go-eval/pkg/eval"
-	"eval"
+	"github.com/kyleburton/go-eval/pkg/eval"
 	"github.com/sbinet/go-terminal/pkg/terminal"
 )
 
