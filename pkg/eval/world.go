@@ -368,7 +368,7 @@ func (w *World) DefineConst(name string, t Type, val Value) error {
 	return nil
 }
 
-func (w *World) DefineVar(name string, t Type, val Value) *Variable, error {
+func (w *World) DefineVar(name string, t Type, val Value) (*Variable, error) {
 	v, prev := w.scope.DefineVar(name, token.NoPos, t)
 	if prev != nil {
 		return nil, &RedefinitionError{name, prev}
