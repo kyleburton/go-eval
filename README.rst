@@ -5,8 +5,8 @@ This is the new home for the exp/eval package: the beginning of an interpreter f
 
 Installation::
 
-  go get github.com/sbinet/go-eval/pkg/eval
-  go get github.com/sbinet/go-eval/cmd/go-eval
+  go get github.com/kyleburton/go-eval/pkg/eval
+  go get github.com/kyleburton/go-eval/cmd/go-eval
 
 Usage::
 
