@@ -135,24 +135,24 @@ func TypeOfNative(v interface{}) Type { return TypeFromNative(reflect.TypeOf(v))
  * Function bridging
  */
 
-type nativeFunc struct {
+type NativeFunc struct {
 	fn      func(*Thread, []Value, []Value)
 	in, out int
 }
 
-func (f *nativeFunc) NewFrame() *Frame {
+func (f *NativeFunc) NewFrame() *Frame {
 	vars := make([]Value, f.in+f.out)
 	return &Frame{nil, vars}
 }
 
-func (f *nativeFunc) Call(t *Thread) { f.fn(t, t.f.Vars[0:f.in], t.f.Vars[f.in:f.in+f.out]) }
+func (f *NativeFunc) Call(t *Thread) { f.fn(t, t.f.Vars[0:f.in], t.f.Vars[f.in:f.in+f.out]) }
 
 // FuncFromNative creates an interpreter function from a native
 // function that takes its in and out arguments as slices of
 // interpreter Value's.  While somewhat inconvenient, this avoids
 // value marshalling.
 func FuncFromNative(fn func(*Thread, []Value, []Value), t *FuncType) FuncValue {
-	return &funcV{&nativeFunc{fn, len(t.In), len(t.Out)}}
+	return &funcV{&NativeFunc{fn, len(t.In), len(t.Out)}}
 }
 
 // FuncFromNativeTyped is like FuncFromNative, but constructs the
