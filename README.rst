@@ -1,7 +1,9 @@
 go-eval
 =======
 
-This is the new home for the exp/eval package: the beginning of an interpreter for Go.
+This is a fork of https://github.com/sbinet/go-eval
+
+This fork is used by https://github.com/kyleburton/go-abtab to provide expression support in the @abgrep@ utility.  The changes in the fork focus on allowing variables to be injected into the evaluation runtime.
 
 Installation::
 
